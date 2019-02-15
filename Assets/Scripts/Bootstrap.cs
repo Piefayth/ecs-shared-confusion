@@ -7,12 +7,7 @@ public class Bootstrap : JobComponentSystem {
     EntityManager entityManager;
 
     protected override JobHandle OnUpdate(JobHandle inputDeps) {
-        NativeArrayToucher firstSystemJobs = World.GetOrCreateManager<FirstSystem>().buildJobs();
-        NativeArrayToucher secondSystemJobs = World.GetOrCreateManager<SecondSystem>().buildJobs();
-
-        JobHandle firstSystemWork = firstSystemJobs.Schedule(inputDeps);
-        JobHandle secondSystemWork = secondSystemJobs.Schedule(firstSystemWork);
-        return secondSystemWork;
+        return inputDeps;
     }
 
     protected override void OnCreateManager() {

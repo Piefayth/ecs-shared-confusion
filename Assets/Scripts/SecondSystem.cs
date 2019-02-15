@@ -8,14 +8,10 @@ public class SecondSystem : JobComponentSystem {
     List<SomeSharedType> allSharedTypes;
 
     protected override JobHandle OnUpdate(JobHandle inputDeps) {
-        return inputDeps;
-    }
-
-    public NativeArrayToucher buildJobs() {
         allSharedTypes.Clear();
         entityManager.GetAllUniqueSharedComponentData(allSharedTypes);
 
-        return new NativeArrayToucher { dataHolder = allSharedTypes[1] };
+        return new NativeArrayToucher { dataHolder = allSharedTypes[1] }.Schedule(inputDeps);
     }
 
     protected override void OnCreateManager() {
